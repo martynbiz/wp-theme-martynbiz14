@@ -1,60 +1,28 @@
-<?php
-/**
- * The main template file
- *
- * This is the most generic template file in a WordPress theme and one
- * of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query,
- * e.g., it puts together the home page when no home.php file exists.
- *
- * @link http://codex.wordpress.org/Template_Hierarchy
- *
- * @package WordPress
- * @subpackage Twenty_Fourteen
- * @since Twenty Fourteen 1.0
- */
+<?php get_header(); ?>
 
-get_header(); ?>
+<div class="grid-x grid-padding-x mb18-padding-y">
+    <div class="cell small-12 large-9">
+        <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <article id="post-<?php the_ID(); ?>" <?php post_class('post-list box-style'); ?> itemscope itemtype="http://schema.org/Article">
+                <div class="mb18-listicle__heading">
+                    <a href="<?php the_permalink() ?>">
+                        <?php the_title(); ?>
+                    </a>
+                </div>
+                <div class="mb18-listicle__snippet" itemprop="articleBody" data-type-cleanup="true">
+                    <?php the_content('Continue reading &rarr;'); ?>
+                </div>
+                <div class="mb18-listicle__date">
+                    <time class="post-date" datetime="<?php the_time('Y-m-d'); ?>" itemprop="datePublished">
+                        <?php the_time(__('F j, Y')); ?>
+                    </time>
+                </div>
+            </article>
+        <?php endwhile; endif; ?>
+    </div>
+    <!-- <div class="cell small-4" style="background: #ddd;">
+        ...
+    </div> -->
+</div>
 
-<section>
-	<div class="sideMenu">
-	  <ul>
-			<?php $args = array(
-      #	'authors'      => '',
-	      'child_of'     => ($post->post_parent) ? $post->post_parent : $post->ID,
-      #	'date_format'  => get_option('date_format'),
-      	'depth'        => 1,
-      #	'echo'         => 1,
-      #	'exclude'      => '',
-      #	'include'      => '',
-      #	'link_after'   => '',
-      #	'link_before'  => '',
-      #	'post_type'    => 'page',
-      #	'post_status'  => 'publish',
-      #	'show_date'    => '',
-      #	'sort_column'  => 'menu_order, post_title',
-	      'title_li'     => '', #__('Pages'), 
-      #	'walker'       => ''
-      );
-
-      wp_list_pages( $args ); ?>
-		</ul>
-	</div>
-</section>
-
-<section>
-	<div class="contentTab">
-		<div class="contentPanel contentHome">
-			<div class="padding">
-				
-				<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-          <?= the_content(); ?>
-				<?php endwhile; endif; ?>
-
-			</div>
-		</div>
-	</div>
-</section>
-
-<?php
-get_footer();
+<?php get_footer(); ?>

@@ -1,58 +1,34 @@
 <?php get_header(); ?>
 
-<section>
-	<div class="sideMenu">
-	  <ul>
-			<?php $args = array(
-      #	'authors'      => '',
-	      'child_of'     => ($post->post_parent) ? $post->post_parent : $post->ID,
-      #	'date_format'  => get_option('date_format'),
-      	'depth'        => 1,
-      #	'echo'         => 1,
-      #	'exclude'      => '',
-      #	'include'      => '',
-      #	'link_after'   => '',
-      #	'link_before'  => '',
-      #	'post_type'    => 'page',
-      #	'post_status'  => 'publish',
-      #	'show_date'    => '',
-      #	'sort_column'  => 'menu_order, post_title',
-	      'title_li'     => '', #__('Pages'), 
-      #	'walker'       => ''
-      );
-
-      wp_list_pages( $args ); ?>
-		</ul>
-	</div>
+<section class="grid-container mb18-padding-y">
+    <div class="grid-x grid-padding-x">
+        <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+            <div class="small-12 medium-8 cell">
+                <article id="post-<?php the_ID(); ?>" <?php post_class('post-single box-style'); ?> role="article" itemscope itemtype="http://schema.org/Article">
+                    <div class="post__header">
+                        <h2 class="post__title">
+                            <?php the_title(); ?>
+                        </h2>
+                    </div>
+                    <!-- <div class="post__image">
+                        <img src="http://www.triplethreatracing.org/wp-content/uploads/2016/05/placeholder-3.png" alt="">
+                        <?php /* echo wp_get_attachment_image( $post->ID, 'post-image' );  */ ?>
+                    </div> -->
+                    <div class="post__body" itemprop="articleBody" data-type-cleanup="true">
+                        <?php the_content('Continue reading &rarr;'); ?>
+                    </div>
+                    <div class="post__date">
+                        <time class="post-date" datetime="<?php the_time('Y-m-d'); ?>" itemprop="datePublished">
+                            <?php the_time(__('F j, Y')); ?>
+                        </time>
+                    </div>
+                </article>
+            </div>
+        <?php endwhile; endif; ?>
+        <div class="small-12 medium-4 cell">
+            <?php get_sidebar(); ?>
+        </div>
+    </div>
 </section>
 
-<section>
-	<div class="contentTab">
-		<div class="contentPanel contentHome">
-			<div class="padding blogContainer">
-				
-				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-          
-	        <div class="post">
-		        <div class="post_header">
-			        <p class="date"><?php the_time('F jS, Y') ?></p>
-			        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-			        <span class="subheader"><?php the_tags(''); ?></span>
-		        </div>
-		        <div class="post_content">
-		        	<?php the_content(); ?>
-		        </div>
-          </div>
-        <?php endwhile; 
-        wp_reset_postdata();
-        
-        endif; ?>
-        
-			</div>
-		</div>
-	</div>
-</section>
-
-<?php
-get_footer();
-?>
+<?php get_footer(); ?>

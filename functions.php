@@ -1,36 +1,64 @@
 <?php
+/**
+ * Uos-blog Theme functions and definitions
+ *
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ * @package uos-layout
+ */
 
-function home_page_menu_args( $args ) {
-  $args['show_home'] = true;
-  return $args;
+add_action( 'init', 'martynbiz18_theme_register_menus' );
+add_action( 'wp_enqueue_scripts', 'martynbiz18_theme_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'martynbiz18_theme_enqueue_scripts' );
+add_action( 'widgets_init', 'martynbiz18_theme_sidebar_registration' );
+
+/**
+ * Load stylesheets
+ */
+function martynbiz18_theme_enqueue_styles() {
+
+	// if used as a child theme, then we will assume it was created with its own enqueue styles function(?)
+	if (! is_child_theme()) {
+		wp_enqueue_style( 'uos_stylesheet', get_template_directory_uri() . '/style.css' );
+	}
+
+	// brand fonts
+	wp_enqueue_style( 'uos_gfonts', '//fonts.googleapis.com/css?family=Ruda:400,700' );
+
 }
-add_filter( 'wp_page_menu_args', 'home_page_menu_args' );
 
+/**
+ * Load scripts
+ */
+function martynbiz18_theme_enqueue_scripts() {
 
-function remove_more_jump_link($link) {
-    $offset = strpos($link, '#more-');
-    if ($offset) {
-        $end = strpos($link, '"',$offset);
-    }
-    if ($end) {
-        $link = substr_replace($link, '', $offset, $end-$offset);
-    }
-    return $link;
+    wp_enqueue_script( 'script', get_template_directory_uri() . '/script.js', array(), 1.1, true);
+
 }
-add_filter('the_content_more_link', 'remove_more_jump_link');
 
-function add_google_analytics() {
-    ?><script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+/**
+ * Register menus
+ */
+function martynbiz18_theme_register_menus() {
 
-  ga('create', 'UA-48154852-1', 'auto');
-  ga('send', 'pageview');
+	register_nav_menus(
+ 		array(
+ 			'primary' => __( 'Primary Menu' ),
+ 		)
+ 	);
 
-</script><?php
 }
-add_action('the_google_analytics_snippet', 'add_google_analytics');
 
-?>
+function martynbiz18_theme_sidebar_registration() {
+
+	register_sidebar( array(
+		'name' 			=> __( 'Sidebar' ),
+		'id'			=> 'sidebar',
+		'description' 	=> __( 'Widgets in this area will be shown in the sidebar.' ),
+		'before_title' 	=> '<h3 class="widget-title">',
+		'after_title' 	=> '</h3>',
+		'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
+		'after_widget' 	=> '</div><div class="clear"></div></div>',
+	) );
+
+}

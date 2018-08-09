@@ -1,0 +1,463 @@
+/*
+Theme Name: Martynbiz18
+Theme URI: https://...
+Description: Theme for martyn.biz. Contains all the styles etc for header, footer and menu.
+Version: 1.0
+*/
+
+// CUSTOM
+@charset 'utf-8';
+
+
+
+
+// Dependencies
+@import '../_vendor/normalize-scss/sass/normalize';
+@import '../_vendor/sassy-lists/stylesheets/helpers/missing-dependencies';
+@import '../_vendor/sassy-lists/stylesheets/helpers/true';
+@import '../_vendor/sassy-lists/stylesheets/functions/purge';
+@import '../_vendor/sassy-lists/stylesheets/functions/remove';
+@import '../_vendor/sassy-lists/stylesheets/functions/replace';
+@import '../_vendor/sassy-lists/stylesheets/functions/to-list';
+
+// CUSTOM
+@import 'scss/settings';
+// @import 'foundation';
+@import 'motion-ui';
+
+// Sass utilities
+@import 'util/util';
+
+// Global variables and styles
+@import 'global';
+
+// Components
+@import 'grid/grid';
+@import 'xy-grid/xy-grid';
+@import 'typography/typography';
+@import 'forms/forms';
+@import 'components/visibility';
+@import 'components/float';
+@import 'components/button';
+// @import 'components/button-group';
+// @import 'components/accordion-menu';
+@import 'components/accordion';
+@import 'components/badge';
+@import 'components/breadcrumbs';
+@import 'components/callout';
+// @import 'components/card';
+@import 'components/close-button';
+// @import 'components/drilldown';
+// @import 'components/dropdown-menu';
+@import 'components/dropdown';
+@import 'components/flex';
+@import 'components/responsive-embed';
+// @import 'components/label';
+@import 'components/media-object';
+@import 'components/menu';
+@import 'components/menu-icon';
+// @import 'components/off-canvas';
+@import 'components/orbit';
+@import 'components/pagination';
+// @import 'components/progress-bar';
+@import 'components/reveal';
+@import 'components/slider';
+@import 'components/sticky';
+// @import 'components/switch';
+@import 'components/table';
+@import 'components/tabs';
+// @import 'components/title-bar';
+// @import 'components/top-bar';
+// @import 'components/thumbnail';
+// @import 'components/tooltip';
+@import 'prototype/prototype';
+
+@mixin foundation-everything(
+  $flex: true,
+  $prototype: false
+) {
+  @if $flex {
+    $global-flexbox: true !global;
+  }
+  @include foundation-global-styles;
+  @if not $flex {
+    @include foundation-grid;
+  }
+  @else {
+    @if $xy-grid {
+      @include foundation-xy-grid-classes;
+    }
+    @else {
+      @include foundation-flex-grid;
+    }
+  }
+  @include foundation-typography;
+  @include foundation-forms;
+  @include foundation-button;
+  @include foundation-accordion;
+  // @include foundation-accordion-menu;
+  @include foundation-badge;
+  @include foundation-breadcrumbs;
+  // @include foundation-button-group;
+  @include foundation-callout;
+  // @include foundation-card;
+  @include foundation-close-button;
+  @include foundation-menu;
+  @include foundation-menu-icon;
+  // @include foundation-drilldown-menu;
+  @include foundation-dropdown;
+  // @include foundation-dropdown-menu;
+  @include foundation-responsive-embed;
+  // @include foundation-label;
+  @include foundation-media-object;
+  // @include foundation-off-canvas;
+  @include foundation-orbit;
+  @include foundation-pagination;
+  // @include foundation-progress-bar;
+  @include foundation-slider;
+  @include foundation-sticky;
+  @include foundation-reveal;
+  // @include foundation-switch;
+  @include foundation-table;
+  @include foundation-tabs;
+  // @include foundation-thumbnail;
+  // @include foundation-title-bar;
+  // @include foundation-tooltip;
+  // @include foundation-top-bar;
+  @include foundation-visibility-classes;
+  @include foundation-float-classes;
+  @include motion-ui-transitions;
+  @if $flex {
+    @include foundation-flex-classes;
+  }
+
+  @if $prototype {
+    @include foundation-prototype-classes;
+  }
+}
+
+
+// CUSTOM...
+
+@include foundation-everything;
+
+body {
+    background: #ede8e6;
+    padding: 20px 0;
+}
+
+
+
+
+
+
+// Components...
+
+$mb18-padding: 30px;
+
+.mb18-padding-y {
+    padding: $mb18-padding 0;
+}
+
+.mb18-padding-top {
+    padding-top: $mb18-padding;
+}
+
+.mb18-padding-bottom {
+    padding-bottom: $mb18-padding;
+}
+
+
+
+
+
+
+
+
+// Sections....
+
+$container-bg-color: #f6f5f1;
+
+.mb18-header {
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    background: darken($container-bg-color, 3%);
+}
+
+.mb18-container {
+    background: $container-bg-color;
+    border-top: 5px solid #2074e7;
+    // padding: 20px 0;
+    border-radius: 3px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.1);
+}
+
+.mb18-heading__wrapper {
+    display: inline-block;
+    white-space: nowrap;
+    color: #4a535f;
+
+    img {
+        float: left;
+        margin-right: 15px;
+    }
+
+    &:hover {
+        color: lighten(#4a535f, 10%);
+    }
+}
+
+.mb18-heading__desc {
+    font-weight: normal;
+    color: #4a535f;
+}
+
+.mb18-heading {
+    position: relative;
+    // top: .125em;
+    font: bold 1.625em 'Ruda','Segoe UI','Calibri','Trebuchet MS',Helvetica,Verdana,sans-serif;
+    line-height: .875em;
+
+    .mb18-heading__hl {
+        color: #2074e7;
+    }
+}
+
+.mb18-listicle__heading {
+    font: bold 1.6em 'Ruda','Segoe UI','Calibri','Trebuchet MS',Helvetica,Verdana,sans-serif;
+    color: #394148;
+    margin-bottom: 1.5rem;
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+// .mb18-listicle__body {
+//     margin-top: 1.5em;
+//     padding: .25em 0 .25em .5em;
+//     font: bold 1em 'Ruda','Segoe UI','Calibri','Trebuchet MS',Helvetica,Verdana,sans-serif;
+//     border-left: .1875em solid #eae9de;
+//     border-bottom: .1875em solid #eae9de;
+//     margin-bottom: 1rem;
+// }
+//
+// .mb18-listicle__snippet {
+//     font: 1.1em 'Myriad Pro','Segoe UI','Calibri','Trebuchet MS',Helvetica,Verdana,sans-serif;
+//     color: #000;
+// }
+
+
+
+
+
+
+
+
+.post {
+    // background: #fff;
+    // border-radius: 3px;
+    // box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.post__header {
+    position: relative;
+    // padding: 8% 10%;
+    // border-bottom: 1px solid #eee;
+    color: $black;
+}
+
+.post__title {
+    // line-height: 120%;
+    word-break: break-word;
+    // font-family: "FSMaja", serif;
+    color: $black;
+    font-weight: 700;
+}
+
+// .post__header:before, .post__header:before {
+//     content: "";
+//     display: block;
+//     border: 12px solid transparent;
+//     border-top-color: #eee;
+//     position: absolute;
+//     z-index: 10;
+//     bottom: 0;
+//     left: 10%;
+//     margin-bottom: -24px;
+// }
+//
+// .post__header:after, .post__header:after {
+//     content: "";
+//     display: block;
+//     border: 11px solid transparent;
+//     border-top-color: #fff;
+//     position: absolute;
+//     z-index: 11;
+//     bottom: 0;
+//     left: 10%;
+//     margin-left: 1px;
+//     margin-bottom: -21px;
+// }
+
+// .post__image {
+//     a {
+//         overflow: hidden;
+//     }
+//
+//     img {
+//         max-width: none;
+//         width: 100%;
+//     }
+// }
+
+.post__body {
+    font-size: 1.1em;
+    color: $black;
+    // line-height: 150%;
+    // color: #666;
+    // padding: 10%;
+
+    .more-link {
+        display: block;
+        margin-top: 1rem;
+    }
+
+    // h1, h2, h3, h4, h5, h6 {
+    //     font-family: "FSMaja", serif;
+    // }
+}
+
+.post__date {
+    background: #eee;
+    padding-left: 20px;
+
+    .post-date {
+        display: block;
+        color: #999;
+        font-size: 0.8em;
+        font-weight: 700;
+        padding: 20px 0px 20px 24px;
+        background: no-repeat left center;
+        background-size: 18px auto;
+        background-image: url('https://blog.stir.ac.uk/wp-content/themes/baskerville/images/icons/2x/clock-g.png');
+        margin-left: 0;
+    }
+}
+
+.post-list {
+    position: relative;
+    // background: #fff;
+    // border-radius: 3px;
+    // box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 30px;
+
+    .post__title {
+        font-size: 1.25em;
+    }
+
+    .post__body {
+        font-size: 0.95em;
+        // line-height: 150%;
+        color: #666;
+        // padding: 10%;
+        //
+        // .more-link {
+        //     display: block;
+        //     margin-top: 1.1em;
+        // }
+    }
+}
+
+.post-single {
+    .post__title {
+        font-size: 3em;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+sidebar
+*/
+
+.sidebar {
+    // background: #fff;
+    // border-radius: 3px;
+    // box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+
+/*
+widgets
+*/
+
+.widget {
+    padding: 30px 0px;
+    position: relative;
+}
+
+.widget_search {
+    padding-top: 0px;
+
+    input[name='s'] {
+        display: block;
+        width: 100%;
+        padding: 16px 55px 16px 20px;
+        border: none;
+        margin: 0;
+        background: #ddd;
+        color: #fff;
+        border-radius: 3px;
+        font-size: 0.9em;
+        -webkit-font-smoothing: antialiased;
+        color: $black;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    input[type='submit'] {
+        display: block;
+        height: 36px;
+        width: 36px;
+        border: none;
+        position: absolute;
+        // top: 50%;
+        // margin-top: -18px;
+        // right: 10px;
+        right: 5px;
+        bottom: 30px;
+        text-indent: -9999px;
+        background: url('https://blog.stir.ac.uk/wp-content/themes/baskerville/images/icons/1x/spyglass-g.png') no-repeat center;
+        background-size: 24px auto;
+    }
+}
+
+.widget_recent_entries {
+    border-top: 1px solid #EEE;
+}
+
+.widget_categories {
+    border-top: 1px solid #EEE;
+}
+
+.widget-title {
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: $black;
+}
